@@ -1,13 +1,8 @@
-# serverless AWS Rust HTTP template
+# OpenRTB 'dumb' bidder implementation
 
-A sample template for bootstraping [Rustlang AWS Lambda](https://github.com/awslabs/aws-lambda-rust-runtime/) HTTP applications with ⚡ serverless framework ⚡.
+Implements OpenRTB 2.5 using the Serverless framework and Rust.
 
 ## ✨ features
-
-- 🦀 Build Rustlang applications targeting AWS Lambda with ease
-- 🛵 Continuous integration testing with GitHub Actions
-- 🚀 Continuous deployment with GitHub Actions
-- 🧪 Getting started tests
 
 ## 📦 install
 
@@ -16,54 +11,8 @@ Install the [serverless framework](https://www.serverless.com/framework/docs/get
 Then then run the following in your terminal
 
 ```bash
-$ npx serverless install \
-  --url https://github.com/softprops/serverless-aws-rust-http \
-  --name my-new-api
+$ npx serverless deploy
 ```
-
-This will download the source of a sample Rustlang application and unpack it as a new service named
-"my-new-api" in a directory called "my-new-api"
-
-## 🧙 how to be a wizard
-
-Assuming you have [aws credentials with appropriate deployment permissions configured](https://serverless.com/framework/docs/providers/aws/guide/credentials/)
-(if you already use any existing AWS tooling installed you likely already have this configured), you can impress your friends by creating a project
-that is _born_ in a production environment.
-
-```bash
-$ npx serverless install \
-  --url https://github.com/softprops/serverless-aws-rust-http \
-  --name my-new-api \
-  && cd my-new-api \
-  && npm i \
-  && npx serverless deploy
-```
-
-`npm i` will make sure npm dependencies are installed. This only needs run once.
-The first time you run `npx serverless deploy` it will pull down and compile the base set
-of dependencies and your application. Unless the dependencies change afterwards,
-this should only happen once, resulting in an out of the box rapid deployment
-cycle.
-
-## 🛵 continuous integration and deployment
-
-This template includes an example [GitHub actions](https://travis-ci.org/) [configuration file](.github/workflows/main.yml) which can unlock a virtuous cycle of continuous integration and deployment
-( i.e all tests are run on prs and every push to master results in a deployment ).
-
-GitHub actions is managed simply by the presence of a file checked into your repository. To set up GitHub Actions to deploy to AWS you'll need to do a few things
-
-Firstly, version control your source. [Github](https://github.com/) is free for opensource.
-
-```bash
-$ git init
-$ git remote add origin git@github.com:{username}/{my-new-service}.git
-```
-
-Store a `AWS_ACCESS_KEY_ID` `AWS_SECRET_ACCESS_KEY` used for aws deployment in your repositories secrets https://github.com/{username}/{my-new-service}/settings/secrets
-
-Add your changes to git and push them to GitHub.
-
-Finally, open https://github.com/{username}/{my-new-service}/actions in your browser and grab a bucket of popcorn 🍿
 
 ## 🔫 function triggering
 
@@ -74,7 +23,7 @@ Copy this sample apigateway request into a file called payload.json
 
 ```json
 {
-  "path": "/test/hello",
+  "path": "/test/openrtb",
   "headers": {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
     "Accept-Encoding": "gzip, deflate, lzma, sdch, br",
@@ -95,7 +44,7 @@ Copy this sample apigateway request into a file called payload.json
     "X-Forwarded-Proto": "https"
   },
   "pathParameters": {
-    "proxy": "hello"
+    "proxy": "openrtb"
   },
   "requestContext": {
     "accountId": "123456789012",
@@ -133,7 +82,7 @@ Copy this sample apigateway request into a file called payload.json
 Then invoke your function with a synthetic request
 
 ```sh
-$ npx serverless invoke -f hello -d "$(cat payload.json)"
+$ npx serverless invoke -f openrtb -d "$(cat payload.json)"
 ```
 
 ## 🔬 logs
@@ -141,7 +90,7 @@ $ npx serverless invoke -f hello -d "$(cat payload.json)"
 With your function deployed you can now tail it's logs right from your project
 
 ```sh
-$ npx serverless logs -f hello
+$ npx serverless logs -f openrtb
 ```
 
 ## 👴 retiring
