@@ -1,0 +1,14 @@
+node_modules
+.serverless
+target
+rustfmt.toml
+debug/
+Cargo.lock
+**/*.rs.bk
+*.pdb
+.idea
+node_modules/
+.serverless
+target
+*.iml
+package-lock.json
